@@ -1,0 +1,28 @@
+name: Manual Trigger Example
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Select the target environment'
+        required: true
+        default: 'TEST'
+        type: choice
+        options:
+          - TEST
+          - STAGE
+          - PROD
+      version:
+        description: 'Enter the version to deploy (e.g., v1.2.3)'
+        required: true
+        default: 'v1.0.0'
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print deployment info
+        run: |
+          echo "🚀 Deploying version: ${{ github.event.inputs.version }}"
+          echo "🔧 Target environment: ${{ github.event.inputs.environment }}"
